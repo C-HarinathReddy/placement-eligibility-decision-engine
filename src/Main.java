@@ -4,22 +4,16 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
+
         Scanner scanner = new Scanner(System.in);
 
-        // Step 1: Read candidate details
-        System.out.println("Enter candidate name:");
+        // Read candidate details
         String name = scanner.next();
-
-        System.out.println("Enter percentage:");
         double percentage = scanner.nextDouble();
-
-        System.out.println("Enter number of backlogs:");
         int backlogs = scanner.nextInt();
-
-        System.out.println("Enter graduation year:");
         int graduationYear = scanner.nextInt();
 
-        // Step 2: Create Candidate object
+        // Create Candidate
         Candidate candidate = new Candidate(
                 name,
                 percentage,
@@ -27,7 +21,7 @@ public class Main {
                 graduationYear
         );
 
-        // Step 3: Create Job object
+        // Create Job
         Job job = new Job(
                 "Infosys",
                 "Java Developer",
@@ -36,26 +30,14 @@ public class Main {
                 2026
         );
 
-        // Step 4: Compare eligibility requirements
-        boolean percentagePass
-                = candidate.getPercentage() >= job.getMinimumPercentage();
+        // Create EligibilityChecker
+        EligibilityChecker checker = new EligibilityChecker();
 
-        boolean backlogPass
-                = candidate.getBacklogs() <= job.getMaximumBacklogs();
-
-        boolean yearPass
-                = candidate.getGraduationYear()
-                == job.getRequiredGraduationYear();
-
-        // Step 5: Calculate final eligibility
-        boolean eligible
-                = percentagePass && backlogPass && yearPass;
-
-        // Step 6: Display results
-        System.out.println();
+        // Display candidate and job details
         System.out.println("================================");
         System.out.println("PLACEMENT ELIGIBILITY RESULT");
         System.out.println("================================");
+        System.out.println();
 
         System.out.println("Candidate : " + candidate.getName());
         System.out.println("Company   : " + job.getCompany());
@@ -63,19 +45,17 @@ public class Main {
 
         System.out.println();
 
-        System.out.println("Percentage      : "
-                + (percentagePass ? "PASS" : "FAIL"));
-
-        System.out.println("Backlogs        : "
-                + (backlogPass ? "PASS" : "FAIL"));
-
-        System.out.println("Graduation Year : "
-                + (yearPass ? "PASS" : "FAIL"));
+        // Evaluate all rules
+        boolean eligible = checker.evaluate(candidate, job);
 
         System.out.println();
 
-        System.out.println("Final Result : "
-                + (eligible ? "ELIGIBLE" : "NOT ELIGIBLE"));
+        // Display final result
+        if (eligible) {
+            System.out.println("Final Result : ELIGIBLE");
+        } else {
+            System.out.println("Final Result : NOT ELIGIBLE");
+        }
 
         System.out.println("================================");
 
