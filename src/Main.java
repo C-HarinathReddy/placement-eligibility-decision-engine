@@ -13,15 +13,24 @@ public class Main {
         int backlogs = scanner.nextInt();
         int graduationYear = scanner.nextInt();
 
-        // Create Candidate
+        // Read candidate skills
+        int skillCount = scanner.nextInt();
+        String[] skills = new String[skillCount];
+
+        for (int i = 0; i < skillCount; i++) {
+            skills[i] = scanner.next();
+        }
+
+        // Create Candidate object
         Candidate candidate = new Candidate(
                 name,
                 percentage,
                 backlogs,
-                graduationYear
+                graduationYear,
+                skills
         );
 
-        // Create Job
+        // Create Job object
         Job job = new Job(
                 "Infosys",
                 "Java Developer",
@@ -33,7 +42,7 @@ public class Main {
         // Create EligibilityChecker
         EligibilityChecker checker = new EligibilityChecker();
 
-        // Display candidate and job details
+        // Display results
         System.out.println("================================");
         System.out.println("PLACEMENT ELIGIBILITY RESULT");
         System.out.println("================================");
@@ -42,15 +51,12 @@ public class Main {
         System.out.println("Candidate : " + candidate.getName());
         System.out.println("Company   : " + job.getCompany());
         System.out.println("Role      : " + job.getRole());
-
         System.out.println();
 
-        // Evaluate all rules
         boolean eligible = checker.evaluate(candidate, job);
 
         System.out.println();
 
-        // Display final result
         if (eligible) {
             System.out.println("Final Result : ELIGIBLE");
         } else {
