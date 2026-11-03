@@ -4,10 +4,12 @@ public class EligibilityChecker {
     private EligibilityRule[] rules;
 
     public EligibilityChecker() {
+
         rules = new EligibilityRule[]{
             new PercentageRule(),
             new BacklogRule(),
-            new GraduationYearRule()
+            new GraduationYearRule(),
+            new SkillRule()
         };
     }
 
@@ -27,6 +29,7 @@ public class EligibilityChecker {
                 System.out.println(
                         rules[i].getRuleName() + " : FAIL"
                 );
+
                 eligible = false;
             }
         }
